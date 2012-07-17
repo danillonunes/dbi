@@ -1,0 +1,7 @@
+DBI: the simple database interactive manager
+
+DBI is a PHP script meant to handle simple MySQL tasks such as database creation, backup, restore and deletion.
+
+DBI follows an unsafe standard to be used only on local or development servers and assume some conventions of how to work with databases in a development environment with ease, like using the same name for user, database name and password.
+
+To install it, just unpack it in any directory (like /opt/dbi) and create a symbolic link in any directory from your PATH (like /usr/bin) to dbi.
