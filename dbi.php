@@ -4,10 +4,50 @@
  */
 
 function main() {
-  switch ($_SERVER["argv"][1]) {
-    case 'create':
-      db_create();
-      break;
+  if (isset($_SERVER["argv"][1])) {
+    $commands = command_list();
+    if (isset($commands[$_SERVER["argv"][1]])) {
+      $commands[$_SERVER["argv"][1]]['callback']();
+    }
+  }
+  else {
+    command_interactive();
+  }
+}
+
+function command_list() {
+  return array(
+    'create' => array(
+      'description' => 'Create a new database.',
+      'callback' => 'db_create'
+    )
+  );
+}
+
+function command_interactive() {
+  $commands = command_list();
+
+  $indexed_commands = array_merge(array('zero'), array_keys($commands));
+
+  echo 'What do you want to do?';
+  echo "\n";
+
+  foreach ($indexed_commands as $i => $command) {
+    if (isset($commands[$command])) {
+      echo "$i) " . $commands[$command]['description'];
+      echo "\n";
+    }
+  }
+
+  $command_number = prompt("\n:");
+
+  if (isset($indexed_commands[$command_number]) && isset($commands[$indexed_commands[$command_number]])) {
+    $commands[$indexed_commands[$command_number]]['callback']();
+  }
+  else {
+    echo "Error: Unrecognizable command.";
+    echo "\n";
+    command_interactive();
   }
 }
 
