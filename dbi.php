@@ -39,10 +39,16 @@ function command_interactive() {
     }
   }
 
+  echo ++$i . ") Exit";
+  echo "\n";
+
   $command_number = prompt("\n:");
 
   if (isset($indexed_commands[$command_number]) && isset($commands[$indexed_commands[$command_number]])) {
     $commands[$indexed_commands[$command_number]]['callback']();
+  }
+  elseif ($command_number == $i || $command_number == 'q') {
+    exit;
   }
   else {
     echo "Error: Unrecognizable command.";
