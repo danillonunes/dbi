@@ -86,7 +86,7 @@ function db_create() {
 }
 
 function get_name() {
-  if ($_SERVER["argv"][2]) {
+  if (isset($_SERVER["argv"][2])) {
     $name = $_SERVER["argv"][2];
   }
   else {
