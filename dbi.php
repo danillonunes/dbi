@@ -30,7 +30,7 @@ function command_interactive() {
   $indexed_commands = array_merge(array('zero'), array_keys($commands));
 
   echo 'What do you want to do?';
-  echo "\n";
+  echo "\n\n";
 
   foreach ($indexed_commands as $i => $command) {
     if (isset($commands[$command])) {
@@ -42,7 +42,7 @@ function command_interactive() {
   echo ++$i . ") Exit";
   echo "\n";
 
-  $command_number = prompt("\n:");
+  $command_number = prompt(':');
 
   if (isset($indexed_commands[$command_number]) && isset($commands[$indexed_commands[$command_number]])) {
     $commands[$indexed_commands[$command_number]]['callback']();
