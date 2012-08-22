@@ -18,7 +18,7 @@ while [ -h "$SELF_PATH" ]; do
 done
 cd "$ORIGDIR"
 
-# Build the path to drush.php.
+# Build the path to dbi.php.
 SCRIPT_PATH=$(dirname "$SELF_PATH")/dbi.php
 
 php=`which php`
