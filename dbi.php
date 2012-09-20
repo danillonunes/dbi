@@ -20,6 +20,10 @@ function command_list() {
     'create' => array(
       'description' => 'Create a new database.',
       'callback' => 'db_create'
+    ),
+    'delete' => array(
+      'description' => 'Delete a given database.',
+      'callback' => 'db_delete'
     )
   );
 }
@@ -86,6 +90,31 @@ function db_create() {
   }
   else {
     echo "Database $name already exists. Try another name.";
+    echo "\n";
+    db_create();
+  }
+}
+
+function db_delete() {
+  $connection = db_connect('root');
+
+  $name = get_name();
+
+  $select = mysql_select_db($name, $connection);
+
+  if ($select) {
+    mysql_query("DROP DATABASE `$name`;");
+    echo "Deleted the database $name.";
+    echo "\n";
+
+    mysql_query("DROP USER '$name'@'%';");
+    echo "Deleted the user $name.";
+    echo "\n";
+
+    mysql_close($connection);
+  }
+  else {
+    echo "Database $name not found. Try another name.";
     echo "\n";
     db_create();
   }
